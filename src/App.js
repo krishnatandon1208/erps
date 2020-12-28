@@ -1,14 +1,18 @@
-import React, {useRef} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
-
-	const firstNameRef = useRef();	
-
+	const [error, setError] = useState(null);
+ 
 	const submitHandler = (event) => {
 		event.preventDefault();
-		console.log(firstNameRef.current.value);
 	};
+
+	function handleChange(event) {
+		event.target.value === ((event.target.value).toLowerCase()) 
+			? setError(null) 
+			: setError("Name must be in lowercase");
+	}
 
 	return (
 		<div className="App">
@@ -16,7 +20,8 @@ function App() {
 			<form onSubmit={submitHandler}>
 				<div>
 					<label htmlFor="k_firstName">First Name</label>
-					<input ref={firstNameRef} type="text" id="k_firstName" name="firstname" />
+					<input type="text" id="k_firstName" name="firstname" onChange={handleChange} />
+					<div id="error-message">{error}</div>
 				</div>
 				<div>
 					<label htmlFor="k_lastName">Last Name</label>
@@ -28,9 +33,9 @@ function App() {
 				</div>
 				<div>
 					<label htmlFor="k_contact">Contact</label>
-					<input type="text" id="k_contact" name="contact" />
+					<input type="number" id="k_contact" name="contact" />
 				</div>
-				<button>Submit</button>
+				<button disabled={Boolean(error)}>Submit</button>
 			</form>
 		</div>
 	);

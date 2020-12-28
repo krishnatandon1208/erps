@@ -35,3 +35,15 @@ button {
 	font-size: 18px;
 	font-weight: bold;
 }
+
+button:disabled {
+	pointer-events: none;
+	width: 20%;
+	border: none;
+	color: #999999;
+	background-color: #CCCCCC;
+	padding: 20px;
+	margin-top: 50px;
+	font-size: 18px;
+	font-weight: bold;
+}

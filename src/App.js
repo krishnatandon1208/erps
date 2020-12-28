@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 import './App.css';
 
 function App() {
-	const [error, setError] = useState(null);
+	const [firstName, setFirstName] = useState("");
  
 	const submitHandler = (event) => {
 		event.preventDefault();
+		alert("Clicked by" + firstName);
 	};
 
 	function handleChange(event) {
-		event.target.value === ((event.target.value).toLowerCase()) 
-			? setError(null) 
-			: setError("Name must be in lowercase");
+		const {value} = event.target;
+		setFirstName(value.toLowerCase());
 	}
 
 	return (
@@ -20,22 +20,16 @@ function App() {
 			<form onSubmit={submitHandler}>
 				<div>
 					<label htmlFor="k_firstName">First Name</label>
-					<input type="text" id="k_firstName" name="firstname" onChange={handleChange} />
-					<div id="error-message">{error}</div>
+					<input 
+						type="text" 
+						id="k_firstName" 
+						name="firstname" 
+						onChange={handleChange} 
+						value={firstName}		
+					/>
 				</div>
-				<div>
-					<label htmlFor="k_lastName">Last Name</label>
-					<input type="text" id="k_lastName" name="lastname" />
-				</div>
-				<div>
-					<label htmlFor="k_email">Email</label>
-					<input type="email" id="k_email" name="email" />
-				</div>
-				<div>
-					<label htmlFor="k_contact">Contact</label>
-					<input type="number" id="k_contact" name="contact" />
-				</div>
-				<button disabled={Boolean(error)}>Submit</button>
+				
+				<button>Submit</button>
 			</form>
 		</div>
 	);

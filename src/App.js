@@ -7,6 +7,9 @@ const allItems = [
 	{ id: 'p', value: 'pear' }
 ];
 
+const hello = {...allItems};
+console.table(JSON.stringify(hello));
+
 export default function App() {
 	const [ items, setItems ] = useState(allItems);
 	console.log(items);
@@ -22,9 +25,7 @@ export default function App() {
 	return (
 		<div
 			style={{
-				height: 200,
-				width: 400,
-				backgroundColor: '#CCCCCC',
+				backgroundColor: '#f6f6f6',
 				borderRadius: 4,
 				padding: 20
 			}}
@@ -35,7 +36,7 @@ export default function App() {
 			</button>
 			<ul style={{ listStyle: 'none', paddingLeft: 0 }}>
 				{items.map((item) => (
-					<li key={item.value}>
+					<li key={item.id}>
 						<label htmlFor={`${item.value}-input`}>{item.value}</label>
 						<input id={`${item.value}-input`} defaultValue={item.value} />
 						<button onClick={() => removeItem(item)}>Remove Item</button>

@@ -1,38 +1,47 @@
-import React, {useState} from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-	const [firstName, setFirstName] = useState("");
- 
-	const submitHandler = (event) => {
-		event.preventDefault();
-		alert("Clicked by" + firstName);
-	};
+const allItems = [
+	{ id: 'a', value: 'apple' },
+	{ id: 'o', value: 'orange' },
+	{ id: 'g', value: 'grapes' },
+	{ id: 'p', value: 'pear' }
+];
 
-	function handleChange(event) {
-		const {value} = event.target;
-		setFirstName(value.toLowerCase());
+export default function App() {
+	const [ items, setItems ] = useState(allItems);
+	console.log(items);
+
+	const addItem = () => {
+		setItems([...items, allItems.find(i => !items.includes(i))]);
+	}
+
+	const removeItem = (item) => {
+		setItems(items.filter(i => i !== item));
 	}
 
 	return (
-		<div className="App">
-			<h3>Working with Forms in React</h3>
-			<form onSubmit={submitHandler}>
-				<div>
-					<label htmlFor="k_firstName">First Name</label>
-					<input 
-						type="text" 
-						id="k_firstName" 
-						name="firstname" 
-						onChange={handleChange} 
-						value={firstName}		
-					/>
-				</div>
-				
-				<button>Submit</button>
-			</form>
+		<div
+			style={{
+				height: 200,
+				width: 400,
+				backgroundColor: '#CCCCCC',
+				borderRadius: 4,
+				padding: 20
+			}}
+		>
+
+			<button disabled={items.length >= allItems.length} onClick={addItem}>
+				Add Item
+			</button>
+			<ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+				{items.map((item) => (
+					<li key={item.value}>
+						<label htmlFor={`${item.value}-input`}>{item.value}</label>
+						<input id={`${item.value}-input`} defaultValue={item.value} />
+						<button onClick={() => removeItem(item)}>Remove Item</button>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
-
-export default App;
